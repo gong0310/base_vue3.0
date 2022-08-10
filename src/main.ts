@@ -15,6 +15,11 @@ app.config.globalProperties.$message = "哈哈哈";
 //     console.log(this.message) // '哈哈哈'
 //   }
 // getCurrentInstance()?.proxy?.$message // '哈哈哈'
+
+// 全局组件 
+// import Setup from "./Setup.vue";
+// app.component('Setup',Setup);
+
 app.use(createPinia());
 app.use(store).use(router);
 router.isReady().then(() => app.mount('#app'))

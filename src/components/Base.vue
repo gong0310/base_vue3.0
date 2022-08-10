@@ -63,7 +63,7 @@ export default defineComponent({
      *  attrs 不被props接收的就是attrs
      *  emit 用来分发自定义事件的函数
      *  expose 暴露公共 property（函数）
-     *  slots 包含所有传入的插槽内容的对象
+     *  slots 包含所有传入的插槽内容的对象，就是子组件中的提供给父组件使用的一个占位符
      */
     onErrorCaptured(() => {
       console.log("子组件报错onErrorCaptured");
