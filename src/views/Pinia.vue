@@ -52,6 +52,8 @@ const store = useUserStore();
 /**
  * 直接解构会失去响应式，使用storeToRefs解决，
  * 类似于toRefs()但专门为 Pinia 设计
+ * storeToRefs源码实现过程：
+ * 先通过toRaw将store转换成原始对象(防止重复引用)，然后进行forin循环进行toref()，然后return出来
  */
 // 把解构出来的数据做ref响应式代理
 let { name, age, sex, getAddAge, getNameAndAge } = storeToRefs(store);
@@ -64,7 +66,7 @@ const changeName = () => {
   console.log(store);
 };
 
-// 2、重置store
+// 2、重置store，跟重置表单样
 const resetStore = () => {
   store.$reset();
   console.log(store);
