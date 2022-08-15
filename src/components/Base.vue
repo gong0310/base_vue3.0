@@ -97,12 +97,12 @@ export default defineComponent({
       /**
        * toRefs：将一个响应式对象转换为一个普通对象，这个普通对象全是ref(对该普通对象的每个属性都做一次ref操作，这样每个属性都是响应式的)
        * 转换响应式对象中所有属性为单独响应式数据，并且转换后的值和之前是关联的。
-       * 
+       *
        * 源码实现过程：
        *    1、toRefs()内部先isProxy判断是否是proxy对象，如果不是报警告，如果是对传进来的数据进行 for in循环,每一个值进行toRef()操作
        *    2、toRef()内部先isRef()判断是否已经是ref对象，如果是直接返回；如果不是就创建RefImpl实例对象
        *    3、isRef()通过判断RefImpl实例对象上的只读属性 __v_isRef 是否是true，默认创建后是true
-       * 
+       *
        * toRef： 单个 property 转为一个 ref
        * 转换响应式对象中某个属性为单独响应式数据，并且转换后的值和之前是关联的（ref 函数也可以转换，但值非关联）
        */
@@ -117,6 +117,19 @@ export default defineComponent({
     nextTick(() => {
       console.log("ref获取dom元素 setup defineExpose=>", setup.value.message);
     });
+    /**
+     * nextTick源码实现过程：
+     *  nextTick 接受一个参数fn（函数），定义了一个变量P是promise类型，如果传了fn 就使用变量P.then执行一个微任务去执行fn函数，
+     *  then里面this 如果有值就调用bind改变this指向返回新的函数，否则直接调用fn，如果没传fn，就返回一个promise，最终结果都会返回一个promise
+     *  注：浏览器如果不兼容则有几种备选方案，其中setTimeout是最后的一种备选方案，它会将回调函数加入任务队列 task 中，等待执行
+     *
+     *  异步更新源码解读: https://www.cnblogs.com/yanxiaoliang/p/16427069.html
+     *  1、数据更改，调用set方法，检测到数据的变化，会触发相应trigger函数（可以理解为监听者）,
+     *  2、把trigger函数通过queueJob函数放入任务队列里面。
+     *  2、然后遍历主任务队列调用queueFlush函数执行异步任务处理，DOM更新 , 里面会通过includes查看是否已经存在进行去重，以及根据id进行排序：
+     *  排序，先渲染父节点，再渲染子节点， 这样可以避免不必要的子节点渲染
+     *  3、处理完之后才会执行 nextTick里面的回调，因为先来后到
+     */
     return {
       count,
       state, // 不使用toRefs
