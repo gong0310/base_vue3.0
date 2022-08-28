@@ -97,6 +97,7 @@ export default defineComponent({
       /**
        * toRefs：将一个响应式对象转换为一个普通对象，这个普通对象全是ref(对该普通对象的每个属性都做一次ref操作，这样每个属性都是响应式的)
        * 转换响应式对象中所有属性为单独响应式数据，并且转换后的值和之前是关联的。
+       * 解构出来的还是 Ref 数据
        *
        * 源码实现过程：
        *    1、toRefs()内部先isProxy判断是否是proxy对象，如果不是报警告，如果是对传进来的数据进行 for in循环,每一个值进行toRef()操作
@@ -141,8 +142,9 @@ export default defineComponent({
     };
     /**
      * ref用来处理基本类型数据, reactive用来处理对象(递归深度响应式)
-     *
-     * ref源码实现过程：
+     * 
+     * ref源码实现过程：原始值的响应式系统的实现 导致必须将他包装为一个对象， 通过 .value 的方式访问
+     * 
      * 1、调用createRef(value,shallow)方法，createRef内部通过isRef()判断是否是ref类型，如果是直接返回，如果不是去实例化ref对象。new RefImpl()
      *    RefImpl类传两个参数，第一个是value，第二个默认false表示是否shallow浅响应式
      * 2、RefImpl类里面的constructor里面定义了 this._value = 第一个入参value，
