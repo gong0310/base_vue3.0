@@ -1,6 +1,8 @@
 <template>
   <div>
     <hr />
+    <!-- 协调整个应用程序的加载状态 
+    等待异步组件时渲染一些额外内容，提升用户体验-->
     <Suspense>
       <template v-slot:default>
         <SuspensChild />

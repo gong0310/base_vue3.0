@@ -53,7 +53,7 @@ export default defineComponent({
     watch(
       state,
       (newVal, oldVal) => {
-        console.log(newVal.count, oldVal);
+        console.log('watch',newVal.count, oldVal);
       },
       {
         immediate: true,
@@ -98,6 +98,7 @@ export default defineComponent({
         state.count = value / 2;
       },
     });
+    console.log('multiply',multiply.value)
     return {
       x,
       multiply,

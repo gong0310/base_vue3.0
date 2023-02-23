@@ -20,7 +20,7 @@ export default defineComponent({
   // setup包含了 beforeCreate created
   // setup在beforeCreate之前执行，此时组件对象还没有创建，this是undefined
   setup() {
-    console.log("setup");
+    console.log("setup",this);
     onBeforeMount(() => {
       let div = document.querySelector("h3");
       console.log("onBeforeMount", div);
