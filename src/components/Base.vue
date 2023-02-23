@@ -79,7 +79,7 @@ export default defineComponent({
       name: "小明",
       age: 22,
     };
-    const state = reactive(person); // 接收一个普通对象然后返回该普通对象的响应式代理器对象
+    const state = reactive(person); // 接收一个普通对象然后返回该普通对象的响应式代理对象
     const handleAgeAdd = () => {
       // person.age++; //person.age++;这种方式页面不会更新渲染,需要操作代理对象才有用
       // state.age++; // 正常写法
@@ -169,4 +169,6 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less"></style>
+<style scoped lang="less">
+
+</style>
